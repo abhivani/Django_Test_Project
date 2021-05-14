@@ -1,0 +1,72 @@
+{% extends 'Delicious/base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 mx-auto" style="padding-top: 30px">
+                <form action="/login"  method="post">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <a href="{% url 'signup' %}">Create an Account</a>
+                    </div>
+                    <button type="submit" onclick='login()' class="btn btn-primary">Submit</button>
+                <script>
+function login()
+	{
+		var uname = document.getElementById("email").value;
+		var pwd = document.getElementById("password").value;
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if(uname =='')
+		{
+			alert("please enter Email.");
+		}
+		else if(pwd=='')
+		{
+        	alert("enter the password");
+		}
+		else if(!filter.test(uname))
+		{
+			alert("Enter valid email id.");
+		}
+		else if(pwd.length <= 6 )  //|| pwd.length > 6
+		{
+			alert("Password min and max length is 6.");
+		}
+		else
+		{
+	alert('Thank You for Login & You are Redirecting to Home Page');
+  //Redirecting to other page or webste code or you can set your own html page.
+       //window.location = "";
+			}
+	}
+</script>
+                
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
